@@ -281,7 +281,7 @@ function clashes(p){
   return posts.filter(q => q.id !== p.id && q.date && q.family === p.family && Math.abs(dayDiff(q.date, p.date)) < 3);
 }
 function label(p){ return p.format; }
-function shortFile(p){ return p.file || "pas encore de fichier"; }
+function shortFile(p){ return p.file || (p.url ? "vidéo liée" : "pas encore de fichier"); }
 
 function chip(p, big){
   const cls = ["chip", "k-"+kc(p), isDone(p) ? "done" : "", clashes(p).length ? "clash" : ""].join(" ");
@@ -397,6 +397,10 @@ function renderDrawer(){
       </div>
     </div>
     <div class="field">
+      <label for="dUrl">Lien de la vidéo (Google Drive)</label>
+      <input type="url" id="dUrl" value="${esc(p.url || "")}" placeholder="Colle ici le lien Drive de la vidéo" ${canWrite ? "" : "readonly"} style="border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:9px 10px;width:100%">
+    </div>
+    <div class="field">
       <label for="dCap">Caption</label>
       <textarea id="dCap" rows="3" placeholder="Écris la caption ici…" ${canWrite ? "" : "readonly"}>${esc(p.caption || "")}</textarea>
       <div class="row"><button class="btn" id="dCopy" ${p.caption ? "" : "disabled"}>Copier la caption</button></div>
@@ -453,6 +457,11 @@ document.addEventListener("change", e => {
   if (e.target.id === "dDate") save(p.id, {date: e.target.value || ""});
   if (e.target.id === "dPoster") save(p.id, {poster: e.target.value});
   if (e.target.id === "dCap" && e.target.value !== (p.caption || "")) save(p.id, {caption: e.target.value});
+  if (e.target.id === "dUrl"){
+    const v = e.target.value.trim();
+    if (v && !v.startsWith("https://drive.google.com/")){ setStatus("Colle un lien Google Drive (il commence par https://drive.google.com/).", true); return; }
+    if (v !== (p.url || "")) save(p.id, {url: v});
+  }
   if (e.target.matches("input[data-acc]")) save(p.id, {done: {...(p.done || {}), [e.target.dataset.acc]: e.target.checked}});
 });
 document.addEventListener("keydown", e => { if (e.key === "Escape" && openId){ openId = null; renderDrawer(); } });

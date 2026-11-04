@@ -64,6 +64,14 @@ export default {
         if (!POSTERS.includes(patch.poster)) return json({ error: "Compte invalide" }, 400);
         p.poster = patch.poster;
       }
+      if ("url" in patch) {
+        if (typeof patch.url !== "string" || !(patch.url === "" || patch.url.startsWith("https://drive.google.com/"))) return json({ error: "Lien Google Drive invalide" }, 400);
+        p.url = patch.url;
+      }
+      if ("file" in patch) {
+        if (typeof patch.file !== "string") return json({ error: "Nom de fichier invalide" }, 400);
+        p.file = patch.file.slice(0, 200);
+      }
       if ("caption" in patch) {
         if (typeof patch.caption !== "string") return json({ error: "Caption invalide" }, 400);
         p.caption = patch.caption.slice(0, 2200);
