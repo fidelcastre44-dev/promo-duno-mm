@@ -1,6 +1,6 @@
 // API du calendrier promo Duno × Majeur Mineur.
 // GET  /posts         -> liste des posts
-// POST /posts/<id>    -> modifie date, compte ou « publié » d'un post
+// POST /posts/<id>    -> modifie date, compte, caption ou « publié » d'un post
 import SEED from "./seed.json";
 
 const CORS = {
@@ -44,6 +44,10 @@ export default {
       if ("poster" in patch) {
         if (!POSTERS.includes(patch.poster)) return json({ error: "Compte invalide" }, 400);
         p.poster = patch.poster;
+      }
+      if ("caption" in patch) {
+        if (typeof patch.caption !== "string") return json({ error: "Caption invalide" }, 400);
+        p.caption = patch.caption.slice(0, 2200);
       }
       if ("done" in patch) {
         const d = patch.done || {};

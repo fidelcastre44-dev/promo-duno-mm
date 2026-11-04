@@ -1,6 +1,6 @@
 [
  {
-  "date": "2026-11-06",
+  "date": "2026-11-19",
   "done": {
    "duno": false,
    "mm": false
@@ -16,7 +16,7 @@
   "id": "p1"
  },
  {
-  "date": "2026-11-08",
+  "date": "2026-11-16",
   "done": {
    "duno": false,
    "mm": false
@@ -32,7 +32,7 @@
   "id": "p2"
  },
  {
-  "date": "2026-11-07",
+  "date": "2026-11-18",
   "done": {
    "duno": false,
    "mm": false
@@ -48,7 +48,7 @@
   "id": "p3"
  },
  {
-  "date": "2026-11-11",
+  "date": "2026-12-05",
   "done": {
    "duno": false,
    "mm": false
@@ -64,7 +64,7 @@
   "id": "p4"
  },
  {
-  "date": "2026-11-13",
+  "date": "2026-12-09",
   "done": {
    "duno": false,
    "mm": false
@@ -80,7 +80,7 @@
   "id": "p5"
  },
  {
-  "date": "2026-11-06",
+  "date": "2026-11-21",
   "done": {
    "duno": false,
    "mm": false
@@ -96,7 +96,7 @@
   "id": "p6"
  },
  {
-  "date": "2026-11-08",
+  "date": "2026-11-17",
   "done": {
    "duno": false,
    "mm": false
@@ -112,7 +112,7 @@
   "id": "p7"
  },
  {
-  "date": "2026-11-10",
+  "date": "2026-11-24",
   "done": {
    "duno": false,
    "mm": false
@@ -128,7 +128,7 @@
   "id": "p8"
  },
  {
-  "date": "2026-11-14",
+  "date": "2026-12-02",
   "done": {
    "duno": false,
    "mm": false
@@ -144,7 +144,7 @@
   "id": "p9"
  },
  {
-  "date": "2026-11-18",
+  "date": "2026-11-28",
   "done": {
    "duno": false,
    "mm": false
@@ -160,7 +160,7 @@
   "id": "p10"
  },
  {
-  "date": "2026-11-05",
+  "date": "2026-11-20",
   "done": {
    "duno": false,
    "mm": false
@@ -176,7 +176,7 @@
   "id": "p11"
  },
  {
-  "date": "2026-11-12",
+  "date": "2026-11-23",
   "done": {
    "duno": false,
    "mm": false
@@ -192,7 +192,7 @@
   "id": "p12"
  },
  {
-  "date": "2026-11-16",
+  "date": "2026-11-26",
   "done": {
    "duno": false,
    "mm": false
@@ -208,7 +208,7 @@
   "id": "p15"
  },
  {
-  "date": "2026-11-21",
+  "date": "2026-12-07",
   "done": {
    "duno": false,
    "mm": false
@@ -224,7 +224,7 @@
   "id": "p18"
  },
  {
-  "date": "2026-11-12",
+  "date": "2026-11-19",
   "done": {
    "duno": false,
    "mm": false
@@ -240,7 +240,7 @@
   "id": "p19"
  },
  {
-  "date": "2026-11-16",
+  "date": "2026-11-23",
   "done": {
    "duno": false,
    "mm": false
@@ -256,7 +256,7 @@
   "id": "p20"
  },
  {
-  "date": "2026-11-18",
+  "date": "2026-11-21",
   "done": {
    "duno": false,
    "mm": false
@@ -272,7 +272,7 @@
   "id": "p21"
  },
  {
-  "date": "2026-11-17",
+  "date": "2026-11-22",
   "done": {
    "duno": false,
    "mm": false
@@ -288,7 +288,7 @@
   "id": "p23"
  },
  {
-  "date": "2026-11-09",
+  "date": "2026-11-25",
   "done": {
    "duno": false,
    "mm": false
@@ -304,7 +304,7 @@
   "id": "p26"
  },
  {
-  "date": "2026-11-19",
+  "date": "2026-11-29",
   "done": {
    "duno": false,
    "mm": false
@@ -320,7 +320,7 @@
   "id": "p26b"
  },
  {
-  "date": "2026-11-15",
+  "date": "2026-11-27",
   "done": {
    "duno": false,
    "mm": false
@@ -336,7 +336,7 @@
   "id": "p27"
  },
  {
-  "date": "2026-11-10",
+  "date": "2026-12-03",
   "done": {
    "duno": false,
    "mm": false
@@ -352,7 +352,7 @@
   "id": "p28"
  },
  {
-  "date": "2026-11-20",
+  "date": "2026-11-30",
   "done": {
    "duno": false,
    "mm": false
@@ -368,7 +368,7 @@
   "id": "p29"
  },
  {
-  "date": "",
+  "date": "2026-12-01",
   "done": {
    "duno": false,
    "mm": false
@@ -432,23 +432,92 @@
   "id": "p33"
  },
  {
-  "date": "",
+  "caption": "ma chambre, un synthé, et zéro voisin content",
+  "date": "2026-11-09",
   "done": {
    "duno": false,
    "mm": false
   },
-  "family": "push",
+  "family": "chambre",
   "file": "",
-  "format": "Plan Duno push chambre (synthé puis drop face cam)",
-  "note": "En tournage par Paul",
-  "num": "34",
-  "poster": "",
+  "format": "Chambre #1 — synthé puis drop face cam",
+  "note": "En tournage par Paul · à poster en TikTok et en Reel, sans annoncer le single",
+  "num": "34a",
+  "poster": "duno",
   "type": "Reel",
   "url": "",
-  "id": "p34"
+  "id": "p34a"
  },
  {
-  "date": "",
+  "caption": "attends le drop. vraiment, attends-le",
+  "date": "2026-11-10",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "chambre",
+  "file": "",
+  "format": "Chambre #2 — synthé puis drop face cam",
+  "note": "En tournage par Paul · à poster en TikTok et en Reel, sans annoncer le single",
+  "num": "34b",
+  "poster": "duno",
+  "type": "Reel",
+  "url": "",
+  "id": "p34b"
+ },
+ {
+  "caption": "tu montes le son à quel moment ?",
+  "date": "2026-11-11",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "chambre",
+  "file": "",
+  "format": "Chambre #3 — synthé puis drop face cam",
+  "note": "En tournage par Paul · à poster en TikTok et en Reel, sans annoncer le single",
+  "num": "34c",
+  "poster": "duno",
+  "type": "Reel",
+  "url": "",
+  "id": "p34c"
+ },
+ {
+  "caption": "2h du mat, je devais juste tester un preset",
+  "date": "2026-11-13",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "chambre",
+  "file": "",
+  "format": "Chambre #4 — synthé puis drop face cam",
+  "note": "En tournage par Paul · à poster en TikTok et en Reel, sans annoncer le single",
+  "num": "34d",
+  "poster": "duno",
+  "type": "Reel",
+  "url": "",
+  "id": "p34d"
+ },
+ {
+  "caption": "même synthé que sur mon EP. pas la même humeur",
+  "date": "2026-11-15",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "chambre",
+  "file": "",
+  "format": "Chambre #5 — synthé puis drop face cam",
+  "note": "En tournage par Paul · à poster en TikTok et en Reel, sans annoncer le single",
+  "num": "34e",
+  "poster": "duno",
+  "type": "Reel",
+  "url": "",
+  "id": "p34e"
+ },
+ {
+  "date": "2026-12-12",
   "done": {
    "duno": false,
    "mm": false

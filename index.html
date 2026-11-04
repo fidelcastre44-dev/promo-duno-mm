@@ -16,7 +16,7 @@
 :root{
   --bg:#f3f4f1; --surface:#ffffff; --sunk:#e9ebe6; --line:#d9dcd4; --fg:#16181a; --muted:#646a6f;
   --duno:#1f9d63; --duno-soft:#d6f0e2; --mm:#2f6fe0; --mm-soft:#dbe6fb; --cross:#e57a16; --cross-soft:#fbe5cf;
-  --warn:#c2410c; --focus:#2f6fe0;
+  --warn:#c2410c; --focus:#2f6fe0; --release:#c8336a;
   --display:"Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
   --body:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
@@ -25,11 +25,11 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#111315; --surface:#1a1d20; --sunk:#22262a; --line:#30353a; --fg:#eef0ec; --muted:#9aa1a6;
   --duno:#3fcf8a; --duno-soft:#173a2a; --mm:#6c9cff; --mm-soft:#1a2a4a; --cross:#ff9a3d; --cross-soft:#43290f;
-  --warn:#ff8a5b; --focus:#6c9cff; color-scheme:dark}}
+  --warn:#ff8a5b; --focus:#6c9cff; --release:#ff6b9a; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#111315; --surface:#1a1d20; --sunk:#22262a; --line:#30353a; --fg:#eef0ec; --muted:#9aa1a6;
   --duno:#3fcf8a; --duno-soft:#173a2a; --mm:#6c9cff; --mm-soft:#1a2a4a; --cross:#ff9a3d; --cross-soft:#43290f;
-  --warn:#ff8a5b; --focus:#6c9cff; color-scheme:dark}
+  --warn:#ff8a5b; --focus:#6c9cff; --release:#ff6b9a; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.45}
 .wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px;display:flex;flex-direction:column;gap:22px}
@@ -112,6 +112,21 @@ header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:spac
 .tray .chip{width:auto;max-width:100%;padding:6px 10px;font-size:13.5px}
 .tray.over{outline:2px dashed var(--focus)}
 
+/* Phases */
+.phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.phase{border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;background:var(--surface);display:flex;flex-direction:column;gap:4px;min-width:0}
+.phase.now{border-color:var(--fg);box-shadow:inset 0 0 0 1px var(--fg)}
+.phase .when{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-variant-numeric:tabular-nums}
+.phase .when b{color:var(--fg);font-weight:500}
+.phase h3{font-size:18px;font-weight:700}
+.phase p{margin:0;font-size:13.5px;color:var(--muted)}
+.phase.rel h3{color:var(--release)}
+.plabel{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);line-height:1.2}
+.day.release{box-shadow:inset 0 0 0 2px var(--release)}
+.day.release .plabel,.aday.release .d small{color:var(--release)}
+.aphase{padding:10px 14px 4px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);background:var(--bg)}
+.field textarea{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:9px 10px;width:100%;resize:vertical;font:inherit;color:inherit;min-height:84px}
+
 .help{font-size:13.5px;color:var(--muted);max-width:70ch}
 .help b{color:var(--fg)}
 
@@ -166,6 +181,8 @@ header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:spac
 
   <section class="today" id="today" aria-live="polite"></section>
 
+  <section class="phases" id="phases" aria-label="Phases de la campagne"></section>
+
   <section class="cal">
     <div class="calbar">
       <div class="nav">
@@ -202,6 +219,16 @@ header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:spac
 (() => {
 const ACC = {duno:"Duno", mm:"Majeur Mineur", cross:"Cross-post", "":"Compte à choisir"};
 const kc = p => p.poster || "none";
+const RELEASE = "2026-11-27";
+const PHASES = [
+  {label:"Teasing chambre", from:"2026-11-09", to:"2026-11-15", desc:"Duno seul dans sa chambre, au format de l'EP. Aucune annonce du single : juste des captions qui accrochent."},
+  {label:"Avant-sortie", from:"2026-11-16", to:"2026-11-26", desc:"Majeur Mineur arrive. Premiers cross-posts tous les 2 jours, les prises solo continuent."},
+  {label:"Sortie", from:"2026-11-27", to:"2026-12-03", rel:true, desc:"Le son sort le 27. Lives de l'Élysée, vidéos d'Aymeric et cross-posts forts."},
+  {label:"Relance", from:"2026-12-04", to:"2026-12-20", desc:"On ralentit, puis on relance avec les formats fun (blasé, ça brûle) pour ramener une autre énergie."},
+];
+const phaseOf = d => PHASES.find(p => d >= p.from && d <= p.to);
+const MSHORT = ["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
+const short = d => { const x = parse(d); return `${x.getDate()} ${MSHORT[x.getMonth()]}`; };
 const MONTHS = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
 const DOWS = ["lun","mar","mer","jeu","ven","sam","dim"];
 const DOWL = ["dim.","lun.","mar.","mer.","jeu.","ven.","sam."];
@@ -259,6 +286,14 @@ function renderToday(){
   }).join("");
 }
 
+function renderPhases(){
+  const cur = phaseOf(todayISO) || PHASES.find(p => p.from > todayISO);
+  $("#phases").innerHTML = PHASES.map(p => {
+    const n = posts.filter(x => x.date >= p.from && x.date <= p.to).length;
+    return `<div class="phase ${p === cur ? "now" : ""} ${p.rel ? "rel" : ""}"><span class="when"><b>${short(p.from)} → ${short(p.to)}</b> · ${n} post${n > 1 ? "s" : ""}${p === cur ? (phaseOf(todayISO) ? " · en cours" : " · à venir") : ""}</span><h3>${esc(p.label)}</h3><p>${esc(p.desc)}</p></div>`;
+  }).join("");
+}
+
 function renderCal(){
   const y = view.getFullYear(), m = view.getMonth();
   $("#mtitle").textContent = `${MONTHS[m]} ${y}`;
@@ -274,16 +309,20 @@ function renderCal(){
   let html = DOWS.map(x => `<div class="dow">${x}</div>`).join("");
   html += cells.map(d => {
     const k = iso(d);
-    const cls = ["day", d.getMonth() !== m ? "out" : "", k === todayISO ? "is-today" : ""].join(" ");
-    return `<div class="${cls}" data-date="${k}"><span class="num">${d.getDate()}</span>${forDay(k).map(p => chip(p)).join("")}</div>`;
+    const cls = ["day", d.getMonth() !== m ? "out" : "", k === todayISO ? "is-today" : "", k === RELEASE ? "release" : ""].join(" ");
+    const ph = PHASES.find(p => p.from === k);
+    const tag = k === RELEASE ? `<span class="plabel">Sortie du son</span>` : ph ? `<span class="plabel">${esc(ph.label)}</span>` : "";
+    return `<div class="${cls}" data-date="${k}"><span class="num">${d.getDate()}</span>${tag}${forDay(k).map(p => chip(p)).join("")}</div>`;
   }).join("");
   $("#grid").innerHTML = html;
 
   // agenda: days of this month with posts
   const days = [...new Set(posts.filter(p => p.date && visible(p) && parse(p.date).getMonth() === m && parse(p.date).getFullYear() === y).map(p => p.date))].sort();
+  let lastPh = null;
   $("#agenda").innerHTML = days.length ? days.map(k => {
-    const d = parse(k);
-    return `<div class="aday ${k === todayISO ? "is-today" : ""}"><div class="d">${d.getDate()}<small>${DOWL[d.getDay()]}</small></div>
+    const d = parse(k); const ph = phaseOf(k);
+    const head = ph && ph !== lastPh ? `<div class="aphase">${esc(ph.label)}</div>` : ""; lastPh = ph;
+    return `${head}<div class="aday ${k === todayISO ? "is-today" : ""} ${k === RELEASE ? "release" : ""}"><div class="d">${d.getDate()}<small>${k === RELEASE ? "sortie" : DOWL[d.getDay()]}</small></div>
       <div class="list">${forDay(k).map(p => chip(p, true)).join("")}</div></div>`;
   }).join("") : `<p class="none">Aucun post prévu en ${MONTHS[m]}.</p>`;
 }
@@ -296,7 +335,9 @@ function renderTray(){
 function renderDrawer(){
   const p = posts.find(x => x.id === openId);
   const dr = $("#drawer");
-  if (!p){ dr.hidden = true; $("#scrim").hidden = true; return; }
+  if (!p){ dr.hidden = true; $("#scrim").hidden = true; dr.dataset.id = ""; return; }
+  if (!dr.hidden && dr.dataset.id === p.id && document.activeElement && document.activeElement.id === "dCap") return;
+  dr.dataset.id = p.id;
   const c = clashes(p);
   const accts = p.poster === "cross" ? ["duno","mm"] : p.poster ? [p.poster] : [];
   dr.className = "drawer k-" + kc(p);
@@ -326,7 +367,12 @@ function renderDrawer(){
         <button class="btn" id="dClear" ${canWrite && p.date ? "" : "disabled"}>Retirer la date</button>
       </div>
     </div>
-    ${c.length ? `<div class="warn">Format proche à moins de 3 jours : ${c.map(q => `${esc(q.file || q.format)} (${parse(q.date).getDate()} ${MONTHS[parse(q.date).getMonth()].slice(0,4)}.)`).join(", ")}.</div>` : ""}
+    <div class="field">
+      <label for="dCap">Caption</label>
+      <textarea id="dCap" rows="3" placeholder="Écris la caption ici…" ${canWrite ? "" : "readonly"}>${esc(p.caption || "")}</textarea>
+      <div class="row"><button class="btn" id="dCopy" ${p.caption ? "" : "disabled"}>Copier la caption</button></div>
+    </div>
+    ${c.length ? `<div class="warn">Format proche à moins de 3 jours : ${c.map(q => `${esc(q.file || q.format)} (${short(q.date)})`).join(", ")}.</div>` : ""}
     ${accts.length ? "" : `<div class="tip">Choisis un compte pour pouvoir le marquer comme publié.</div>`}
     <div class="field" ${accts.length ? "" : "hidden"}>
       <label>Publié ?</label>
@@ -337,7 +383,7 @@ function renderDrawer(){
 
 function render(){
   document.querySelectorAll(".who button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.who === who)));
-  renderToday(); renderCal(); renderTray(); renderDrawer();
+  renderToday(); renderPhases(); renderCal(); renderTray(); renderDrawer();
 }
 
 function setStatus(t, err){ const s = $("#status"); s.textContent = t; s.classList.toggle("err", !!err); }
@@ -367,11 +413,16 @@ document.addEventListener("click", e => {
     const d = parse(p.date); d.setDate(d.getDate() + (e.target.id === "dPlus" ? 1 : -1)); save(p.id, {date: iso(d)});
   }
   if (e.target.id === "dClear") save(p.id, {date: ""});
+  if (e.target.id === "dCopy"){
+    const ta = $("#dCap");
+    navigator.clipboard?.writeText(ta.value).then(() => setStatus("Caption copiée."), () => { ta.focus(); ta.select(); setStatus("Sélectionnée : fais Copier."); }) ?? (ta.focus(), ta.select());
+  }
 });
 document.addEventListener("change", e => {
   const p = posts.find(x => x.id === openId); if (!p) return;
   if (e.target.id === "dDate") save(p.id, {date: e.target.value || ""});
   if (e.target.id === "dPoster") save(p.id, {poster: e.target.value});
+  if (e.target.id === "dCap" && e.target.value !== (p.caption || "")) save(p.id, {caption: e.target.value});
   if (e.target.matches("input[data-acc]")) save(p.id, {done: {...(p.done || {}), [e.target.dataset.acc]: e.target.checked}});
 });
 document.addEventListener("keydown", e => { if (e.key === "Escape" && openId){ openId = null; renderDrawer(); } });
@@ -410,7 +461,7 @@ render();
   catch(e){ setStatus("Adresse du serveur introuvable (api.json).", true); return; }
   db = true;
   await pull(true);
-  setInterval(() => { if (!document.hidden && !dragId) pull(false); }, 20000);
+  setInterval(() => { if (!document.hidden && !dragId && !(document.activeElement && document.activeElement.id === "dCap")) pull(false); }, 20000);
   document.addEventListener("visibilitychange", () => { if (!document.hidden) pull(false); });
 })();
 })();
