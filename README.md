@@ -17,7 +17,7 @@ Calendrier partagé des posts (Reels, Reels d'essai, stories) pour la promo du s
 | `index.html` | L'appli (GitHub Pages) |
 | `api.json` | Adresse du serveur, réécrite automatiquement au déploiement |
 | `worker/` | Serveur Cloudflare (Worker + KV) qui garde les dates et les cases « Publié » |
-| `worker/src/seed.json` | Planning de départ, chargé au premier lancement du serveur |
+| `seed.json` | Planning de départ, lu par le serveur au premier lancement (stockage vide) |
 
 ## Mise en route
 
@@ -29,7 +29,7 @@ Le stockage KV `promo-duno-mm` existe déjà sur le compte Cloudflare.
 
 ## Remettre le planning à zéro
 
-`seed.json` n'est lu que si le stockage est vide. Pour repartir d'un nouveau planning, supprimer la clé `posts` du KV `promo-duno-mm` dans le tableau de bord Cloudflare, puis recharger l'appli.
+`seed.json` n’est lu que si le stockage est vide. Pour repartir d'un nouveau planning, supprimer la clé `posts` du KV `promo-duno-mm` dans le tableau de bord Cloudflare, puis recharger l'appli.
 
 ## Limite
 

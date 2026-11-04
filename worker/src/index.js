@@ -1,7 +1,7 @@
 // API du calendrier promo Duno × Majeur Mineur.
 // GET  /posts         -> liste des posts
 // POST /posts/<id>    -> modifie date, compte, caption ou « publié » d'un post
-import SEED from "./seed.json";
+const SEED_URL = "https://fidelcastre44-dev.github.io/promo-duno-mm/seed.json";
 
 const CORS = {
   "Access-Control-Allow-Origin": "*",
@@ -17,8 +17,11 @@ const isDate = s => s === "" || /^\d{4}-\d{2}-\d{2}$/.test(s);
 async function load(env) {
   const saved = await env.POSTS.get("posts", "json");
   if (saved) return saved;
-  await env.POSTS.put("posts", JSON.stringify(SEED));
-  return SEED;
+  const r = await fetch(SEED_URL, { cf: { cacheTtl: 0 } });
+  if (!r.ok) throw new Error("Planning de départ introuvable");
+  const seed = await r.json();
+  await env.POSTS.put("posts", JSON.stringify(seed));
+  return seed;
 }
 
 export default {
