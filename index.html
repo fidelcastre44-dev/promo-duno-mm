@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Promo D×MM">
+<meta name="theme-color" content="#111315">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}</style>
+<title>Promo Duno × Majeur Mineur</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a release-campaign wall planner — today's drops up top, month grid below, detail drawer on the side. */
+:root{
+  --bg:#f3f4f1; --surface:#ffffff; --sunk:#e9ebe6; --line:#d9dcd4; --fg:#16181a; --muted:#646a6f;
+  --duno:#1f9d63; --duno-soft:#d6f0e2; --mm:#2f6fe0; --mm-soft:#dbe6fb; --cross:#e57a16; --cross-soft:#fbe5cf;
+  --warn:#c2410c; --focus:#2f6fe0;
+  --display:"Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111315; --surface:#1a1d20; --sunk:#22262a; --line:#30353a; --fg:#eef0ec; --muted:#9aa1a6;
+  --duno:#3fcf8a; --duno-soft:#173a2a; --mm:#6c9cff; --mm-soft:#1a2a4a; --cross:#ff9a3d; --cross-soft:#43290f;
+  --warn:#ff8a5b; --focus:#6c9cff; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111315; --surface:#1a1d20; --sunk:#22262a; --line:#30353a; --fg:#eef0ec; --muted:#9aa1a6;
+  --duno:#3fcf8a; --duno-soft:#173a2a; --mm:#6c9cff; --mm-soft:#1a2a4a; --cross:#ff9a3d; --cross-soft:#43290f;
+  --warn:#ff8a5b; --focus:#6c9cff; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.45}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px;display:flex;flex-direction:column;gap:22px}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px}
+.brand h1{font-size:clamp(28px,5vw,44px);font-weight:800;letter-spacing:-.02em;line-height:1}
+.brand h1 .x{color:var(--muted);font-weight:500}
+.brand p{margin:6px 0 0;color:var(--muted);font-size:14px}
+.brand p q{font-style:italic;color:var(--fg)}
+.who{display:flex;gap:6px;background:var(--sunk);padding:4px;border-radius:999px}
+.who button{border:0;background:transparent;padding:7px 14px;border-radius:999px;font-weight:600;font-size:14px;color:var(--muted)}
+.who button[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:0 1px 2px rgb(0 0 0 / .12)}
+.who button .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.status{font-size:13px;color:var(--muted);font-family:var(--mono)}
+.status.err{color:var(--warn)}
+
+/* Today strip */
+.today{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.lane{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.lane h2{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
+.lane h2 .tag{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.lane .empty{color:var(--muted);font-size:14px}
+.drop{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--bg);text-align:left;width:100%}
+.drop:hover{border-color:var(--muted)}
+.drop .meta{min-width:0;flex:1}
+.drop .meta b{display:block;font-weight:600;overflow-wrap:anywhere}
+.drop .meta span{font-size:12.5px;color:var(--muted);font-family:var(--mono)}
+.drop .go{flex:none;font-size:13px;font-weight:600;padding:6px 10px;border-radius:6px;background:var(--fg);color:var(--bg);text-decoration:none}
+.drop.done{opacity:.55}
+.drop.done .meta b{text-decoration:line-through}
+
+.swatch{flex:none;width:6px;align-self:stretch;border-radius:3px}
+.k-duno{--c:var(--duno);--cs:var(--duno-soft)} .k-mm{--c:var(--mm);--cs:var(--mm-soft)} .k-cross{--c:var(--cross);--cs:var(--cross-soft)} .k-none{--c:var(--muted);--cs:var(--sunk)}
+.swatch{background:var(--c)}
+
+/* Calendar */
+.cal{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.calbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.calbar h2{font-size:22px;font-weight:800;text-transform:capitalize}
+.calbar .nav{display:flex;gap:6px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 12px;font-weight:600;font-size:14px}
+.btn:hover{background:var(--sunk)}
+.btn.primary{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.dow{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 8px;border-bottom:1px solid var(--line)}
+.day{min-height:118px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:6px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.day:nth-child(7n){border-right:0}
+.day.out{background:var(--bg)}
+.day.out .num{opacity:.45}
+.day .num{font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.day.is-today .num{color:var(--bg);background:var(--fg);border-radius:999px;padding:1px 7px;align-self:flex-start}
+.day.over{outline:2px dashed var(--focus);outline-offset:-3px}
+.chip{display:flex;align-items:center;gap:6px;width:100%;border:0;border-left:4px solid var(--c);background:var(--cs);border-radius:5px;padding:4px 6px;font-size:12.5px;text-align:left;line-height:1.25;min-width:0}
+.chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.chip .t{font-family:var(--mono);font-size:10px;opacity:.75;flex:none}
+.chip.done{opacity:.5;text-decoration:line-through}
+.chip.clash{box-shadow:inset 0 0 0 1px var(--warn)}
+.chip[draggable="true"]{cursor:grab}
+
+/* Agenda (phone) */
+.agenda{display:none;flex-direction:column}
+.aday{display:grid;grid-template-columns:58px 1fr;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.aday:last-child{border-bottom:0}
+.aday .d{font-family:var(--display);font-weight:800;font-size:22px;line-height:1}
+.aday .d small{display:block;font-family:var(--mono);font-weight:400;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px}
+.aday.is-today .d{color:var(--focus)}
+.aday .list{display:flex;flex-direction:column;gap:6px;min-width:0}
+.aday .chip{font-size:14px;padding:8px 10px}
+.agenda .none{padding:18px 14px;color:var(--muted)}
+
+.tray{background:var(--surface);border:1px dashed var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:10px}
+.tray h2{font-size:17px}
+.tray p{margin:0;color:var(--muted);font-size:13.5px}
+.tray .items{display:flex;flex-wrap:wrap;gap:8px}
+.tray .chip{width:auto;max-width:100%;padding:6px 10px;font-size:13.5px}
+.tray.over{outline:2px dashed var(--focus)}
+
+.help{font-size:13.5px;color:var(--muted);max-width:70ch}
+.help b{color:var(--fg)}
+
+/* Drawer */
+.scrim{position:fixed;inset:0;background:rgb(0 0 0 / .35);z-index:20}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--surface);border-left:1px solid var(--line);z-index:21;display:flex;flex-direction:column;
+  padding:calc(18px + env(safe-area-inset-top,0px)) max(18px,env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) 18px;gap:16px;overflow-y:auto}
+.drawer .head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.drawer h3{font-size:24px;font-weight:800;line-height:1.1;overflow-wrap:anywhere}
+.drawer .x{border:0;background:var(--sunk);border-radius:8px;width:34px;height:34px;font-size:18px;flex:none}
+.pills{display:flex;gap:6px;flex-wrap:wrap}
+.pill{font-family:var(--mono);font-size:11.5px;padding:3px 8px;border-radius:999px;background:var(--sunk);color:var(--fg)}
+.pill.acct{background:var(--cs);color:var(--fg);border:1px solid var(--c)}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.field input[type=date],.field select{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:9px 10px;width:100%}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.open{display:grid;gap:8px}
+.open a{display:flex;align-items:center;justify-content:space-between;gap:10px;text-decoration:none;color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:11px 12px;font-weight:600}
+.open a:hover{background:var(--sunk)}
+.open a.main{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.open a small{font-weight:400;font-family:var(--mono);font-size:11.5px;opacity:.75}
+.checks{display:flex;flex-direction:column;gap:8px}
+.check{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.check input{width:18px;height:18px;accent-color:var(--c)}
+.warn{font-size:13.5px;color:var(--warn);border:1px solid currentColor;border-radius:8px;padding:9px 11px}
+.tip{font-size:13px;color:var(--muted)}
+.file{font-family:var(--mono);font-size:12.5px;color:var(--muted);overflow-wrap:anywhere}
+
+@media (max-width:720px){
+  .grid{display:none}
+  .agenda{display:flex}
+  .calbar .legend{display:none}
+}
+@media (prefers-reduced-motion:no-preference){.drawer{animation:slide .18s ease-out}@keyframes slide{from{transform:translateX(24px);opacity:.6}}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>Duno <span class="x">×</span> Majeur Mineur</h1>
+      <p>Calendrier promo du single <q>tout c'que je vois c'est toi</q> — Reels, essais et stories.</p>
+    </div>
+    <div class="who" role="group" aria-label="Afficher les posts de">
+      <button id="f-all" data-who="all" aria-pressed="true">Tous</button>
+      <button id="f-duno" data-who="duno" aria-pressed="false"><span class="dot" style="background:var(--duno)"></span>Duno</button>
+      <button id="f-mm" data-who="mm" aria-pressed="false"><span class="dot" style="background:var(--mm)"></span>Majeur Mineur</button>
+    </div>
+  </header>
+
+  <section class="today" id="today" aria-live="polite"></section>
+
+  <section class="cal">
+    <div class="calbar">
+      <div class="nav">
+        <button class="btn" id="prev" aria-label="Mois précédent">←</button>
+        <button class="btn" id="now">Aujourd'hui</button>
+        <button class="btn" id="next" aria-label="Mois suivant">→</button>
+      </div>
+      <h2 id="mtitle"></h2>
+      <div class="legend">
+        <span class="k-duno"><i></i>Duno</span>
+        <span class="k-mm"><i></i>Majeur Mineur</span>
+        <span class="k-cross"><i></i>Cross-post</span>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="agenda" id="agenda"></div>
+  </section>
+
+  <section class="tray" id="tray">
+    <h2>À programmer</h2>
+    <p>Pas encore de date. Glisse-les sur un jour du calendrier, ou ouvre-les pour choisir une date.</p>
+    <div class="items" id="trayItems"></div>
+  </section>
+
+  <p class="help"><b>Pour changer une date :</b> glisse un post sur un autre jour (ordinateur) ou ouvre-le et choisis la date (téléphone). Les changements arrivent chez l'autre en moins d'une demi-minute.
+  <b>Pour publier :</b> « Ouvrir la vidéo » ouvre le fichier dans Google Drive. Sur téléphone, dans l'appli Drive, touche ⋮ puis <i>Envoyer une copie</i> → Instagram ou TikTok. Un cadre orange signale deux formats proches à moins de 3 jours d'écart.</p>
+  <p class="status" id="status">Chargement du planning…</p>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-modal="true" role="dialog" aria-labelledby="dTitle"></aside>
+
+<script>
+(() => {
+const ACC = {duno:"Duno", mm:"Majeur Mineur", cross:"Cross-post", "":"Compte à choisir"};
+const kc = p => p.poster || "none";
+const MONTHS = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+const DOWS = ["lun","mar","mer","jeu","ven","sam","dim"];
+const DOWL = ["dim.","lun.","mar.","mer.","jeu.","ven.","sam."];
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+const parse = s => { const [y,m,d] = s.split("-").map(Number); return new Date(y, m-1, d); };
+const dayDiff = (a,b) => Math.round((parse(a) - parse(b)) / 864e5);
+const todayISO = iso(new Date());
+
+let posts = [];          // [{id, ...data}]
+let who = "all";
+try { who = localStorage.getItem("promo-who") || "all"; } catch(e) {}
+let view = new Date(); view.setDate(1);
+let openId = null;
+let db = null, canWrite = true;
+
+function visible(p){ if (who === "all" || !p.poster) return true; return p.poster === who || p.poster === "cross"; }
+function forDay(d){ return posts.filter(p => p.date === d && visible(p)).sort(order); }
+function order(a,b){ const o={cross:0,duno:1,mm:2,"":3}; return (o[a.poster]??3)-(o[b.poster]??3); }
+function isDone(p){ if (!p.poster) return false; return p.poster === "cross" ? (p.done?.duno && p.done?.mm) : !!p.done?.[p.poster]; }
+function clashes(p){
+  if (!p.date) return [];
+  return posts.filter(q => q.id !== p.id && q.date && q.family === p.family && Math.abs(dayDiff(q.date, p.date)) < 3);
+}
+function label(p){ return p.format; }
+function shortFile(p){ return p.file || "pas encore de fichier"; }
+
+function chip(p, big){
+  const cls = ["chip", "k-"+kc(p), isDone(p) ? "done" : "", clashes(p).length ? "clash" : ""].join(" ");
+  const t = p.type === "Story" ? "STORY" : p.type === "Reel d'essai" ? "ESSAI" : "REEL";
+  return `<button class="${cls}" data-id="${esc(p.id)}" draggable="${canWrite}" title="${esc(label(p))} · ${esc(shortFile(p))}">
+    <span class="t">${t}</span><span>${esc(big ? label(p) + " · " + shortFile(p) : label(p))}</span></button>`;
+}
+
+function renderToday(){
+  // today, or the next day that has something
+  const upcoming = posts.filter(p => p.date && p.date >= todayISO).map(p => p.date).sort();
+  const day = upcoming.includes(todayISO) ? todayISO : (upcoming[0] || todayISO);
+  const d = parse(day);
+  const heading = day === todayISO ? "Aujourd'hui" : `Prochain post · ${DOWL[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]}`;
+  const lanes = who === "all" ? ["duno","mm"] : [who];
+  $("#today").innerHTML = lanes.map(acc => {
+    const list = posts.filter(p => p.date === day && (p.poster === acc || p.poster === "cross"));
+    const body = list.length ? list.map(p => {
+      const done = p.poster === "cross" ? p.done?.[acc] : p.done?.[p.poster];
+      return `<div class="drop k-${p.poster} ${done ? "done" : ""}">
+        <span class="swatch"></span>
+        <button class="meta" data-id="${esc(p.id)}" style="border:0;background:none;padding:0;text-align:left">
+          <b>${esc(label(p))}</b><span>${esc(p.type)} · ${esc(shortFile(p))}${p.poster==="cross"?" · cross-post":""}</span>
+        </button>
+        ${p.url ? `<a class="go" href="${esc(p.url)}" target="_blank" rel="noopener">Ouvrir</a>` : ""}
+      </div>`;}).join("") : `<p class="empty">Rien à poster ce jour-là.</p>`;
+    return `<div class="lane k-${acc}"><h2><span class="swatch" style="width:10px;height:10px;align-self:center"></span>${ACC[acc]} <span class="tag">${esc(heading)}</span></h2>${body}</div>`;
+  }).join("");
+}
+
+function renderCal(){
+  const y = view.getFullYear(), m = view.getMonth();
+  $("#mtitle").textContent = `${MONTHS[m]} ${y}`;
+  const first = new Date(y, m, 1);
+  const offset = (first.getDay() + 6) % 7;
+  const start = new Date(y, m, 1 - offset);
+  const cells = [];
+  for (let i = 0; i < 42; i++){
+    const d = new Date(start); d.setDate(start.getDate() + i);
+    if (i >= 35 && d.getMonth() !== m) break;
+    cells.push(d);
+  }
+  let html = DOWS.map(x => `<div class="dow">${x}</div>`).join("");
+  html += cells.map(d => {
+    const k = iso(d);
+    const cls = ["day", d.getMonth() !== m ? "out" : "", k === todayISO ? "is-today" : ""].join(" ");
+    return `<div class="${cls}" data-date="${k}"><span class="num">${d.getDate()}</span>${forDay(k).map(p => chip(p)).join("")}</div>`;
+  }).join("");
+  $("#grid").innerHTML = html;
+
+  // agenda: days of this month with posts
+  const days = [...new Set(posts.filter(p => p.date && visible(p) && parse(p.date).getMonth() === m && parse(p.date).getFullYear() === y).map(p => p.date))].sort();
+  $("#agenda").innerHTML = days.length ? days.map(k => {
+    const d = parse(k);
+    return `<div class="aday ${k === todayISO ? "is-today" : ""}"><div class="d">${d.getDate()}<small>${DOWL[d.getDay()]}</small></div>
+      <div class="list">${forDay(k).map(p => chip(p, true)).join("")}</div></div>`;
+  }).join("") : `<p class="none">Aucun post prévu en ${MONTHS[m]}.</p>`;
+}
+
+function renderTray(){
+  const list = posts.filter(p => !p.date && visible(p));
+  $("#trayItems").innerHTML = list.length ? list.map(p => chip(p)).join("") : `<span class="tip">Tout est programmé.</span>`;
+}
+
+function renderDrawer(){
+  const p = posts.find(x => x.id === openId);
+  const dr = $("#drawer");
+  if (!p){ dr.hidden = true; $("#scrim").hidden = true; return; }
+  const c = clashes(p);
+  const accts = p.poster === "cross" ? ["duno","mm"] : p.poster ? [p.poster] : [];
+  dr.className = "drawer k-" + kc(p);
+  dr.innerHTML = `
+    <div class="head"><h3 id="dTitle">${esc(label(p))}</h3><button class="x" id="dClose" aria-label="Fermer">×</button></div>
+    <div class="pills"><span class="pill acct">${ACC[p.poster] || ACC[""]}</span><span class="pill">${esc(p.type)}</span><span class="pill">n° ${esc(p.num)}</span></div>
+    <div class="file">${esc(shortFile(p))}</div>
+    ${p.note ? `<div class="tip">${esc(p.note)}</div>` : ""}
+    <div class="open">
+      ${p.url ? `<a class="main" href="${esc(p.url)}" target="_blank" rel="noopener">Ouvrir la vidéo <small>Google Drive</small></a>` : `<div class="tip">Pas encore de vidéo liée à ce post.</div>`}
+      <div class="row" style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram <small>↗</small></a>
+        <a href="https://www.tiktok.com/upload" target="_blank" rel="noopener">TikTok <small>↗</small></a>
+      </div>
+      <div class="tip">Sur téléphone : ouvre la vidéo dans Drive, ⋮ → Envoyer une copie → Instagram ou TikTok.</div>
+    </div>
+    <div class="field">
+      <label for="dPoster">Posté par</label>
+      <select id="dPoster" ${canWrite ? "" : "disabled"}>${["","duno","mm","cross"].map(k => `<option value="${k}" ${p.poster === k ? "selected" : ""}>${k ? ACC[k] : "À choisir"}</option>`).join("")}</select>
+    </div>
+    <div class="field">
+      <label for="dDate">Date de publication</label>
+      <input type="date" id="dDate" value="${esc(p.date || "")}" ${canWrite ? "" : "disabled"}>
+      <div class="row">
+        <button class="btn" id="dMinus" ${canWrite && p.date ? "" : "disabled"}>− 1 jour</button>
+        <button class="btn" id="dPlus" ${canWrite && p.date ? "" : "disabled"}>+ 1 jour</button>
+        <button class="btn" id="dClear" ${canWrite && p.date ? "" : "disabled"}>Retirer la date</button>
+      </div>
+    </div>
+    ${c.length ? `<div class="warn">Format proche à moins de 3 jours : ${c.map(q => `${esc(q.file || q.format)} (${parse(q.date).getDate()} ${MONTHS[parse(q.date).getMonth()].slice(0,4)}.)`).join(", ")}.</div>` : ""}
+    ${accts.length ? "" : `<div class="tip">Choisis un compte pour pouvoir le marquer comme publié.</div>`}
+    <div class="field" ${accts.length ? "" : "hidden"}>
+      <label>Publié ?</label>
+      <div class="checks">${accts.map(a => `<label class="check k-${a}"><input type="checkbox" data-acc="${a}" ${p.done?.[a] ? "checked" : ""} ${canWrite ? "" : "disabled"}> Publié sur le compte ${ACC[a]}</label>`).join("")}</div>
+    </div>`;
+  dr.hidden = false; $("#scrim").hidden = false;
+}
+
+function render(){
+  document.querySelectorAll(".who button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.who === who)));
+  renderToday(); renderCal(); renderTray(); renderDrawer();
+}
+
+function setStatus(t, err){ const s = $("#status"); s.textContent = t; s.classList.toggle("err", !!err); }
+
+async function save(id, patch){
+  if (!db){ setStatus("Modification impossible : le planning partagé n'est pas disponible ici.", true); return; }
+  const p = posts.find(x => x.id === id); if (!p) return;
+  Object.assign(p, patch); render();     // optimistic
+  try {
+    const r = await fetch(API + "/posts/" + encodeURIComponent(id), {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(patch)});
+    if (!r.ok) throw new Error(r.status);
+    const fresh = await r.json(); const i = posts.findIndex(x => x.id === id); if (i >= 0) posts[i] = fresh;
+    setStatus("Enregistré."); render();
+  } catch(e){ setStatus("La modification n'a pas été enregistrée. Réessaie dans un instant.", true); pull(false); }
+}
+
+// events
+document.addEventListener("click", e => {
+  const w = e.target.closest(".who button");
+  if (w){ who = w.dataset.who; try { localStorage.setItem("promo-who", who); } catch(_){} render(); return; }
+  const c = e.target.closest("[data-id]");
+  if (c && !e.target.closest("a")){ openId = c.dataset.id; renderDrawer(); return; }
+  if (e.target.id === "dClose" || e.target.id === "scrim"){ openId = null; renderDrawer(); return; }
+  const p = posts.find(x => x.id === openId);
+  if (!p) return;
+  if (e.target.id === "dMinus" || e.target.id === "dPlus"){
+    const d = parse(p.date); d.setDate(d.getDate() + (e.target.id === "dPlus" ? 1 : -1)); save(p.id, {date: iso(d)});
+  }
+  if (e.target.id === "dClear") save(p.id, {date: ""});
+});
+document.addEventListener("change", e => {
+  const p = posts.find(x => x.id === openId); if (!p) return;
+  if (e.target.id === "dDate") save(p.id, {date: e.target.value || ""});
+  if (e.target.id === "dPoster") save(p.id, {poster: e.target.value});
+  if (e.target.matches("input[data-acc]")) save(p.id, {done: {...(p.done || {}), [e.target.dataset.acc]: e.target.checked}});
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape" && openId){ openId = null; renderDrawer(); } });
+$("#prev").onclick = () => { view.setMonth(view.getMonth() - 1); renderCal(); };
+$("#next").onclick = () => { view.setMonth(view.getMonth() + 1); renderCal(); };
+$("#now").onclick = () => { view = new Date(); view.setDate(1); renderCal(); };
+
+// drag & drop (desktop)
+let dragId = null;
+document.addEventListener("dragstart", e => { const c = e.target.closest(".chip"); if (!c || !canWrite) return; dragId = c.dataset.id; e.dataTransfer.effectAllowed = "move"; try { e.dataTransfer.setData("text/plain", dragId); } catch(_){} });
+document.addEventListener("dragend", () => { dragId = null; document.querySelectorAll(".over").forEach(x => x.classList.remove("over")); });
+document.addEventListener("dragover", e => { const t = e.target.closest(".day,#tray"); if (!t || !dragId) return; e.preventDefault(); document.querySelectorAll(".over").forEach(x => x !== t && x.classList.remove("over")); t.classList.add("over"); });
+document.addEventListener("drop", e => {
+  const t = e.target.closest(".day,#tray"); if (!t || !dragId) return; e.preventDefault();
+  t.classList.remove("over");
+  const date = t.id === "tray" ? "" : t.dataset.date;
+  const p = posts.find(x => x.id === dragId);
+  if (p && p.date !== date) save(p.id, {date});
+  dragId = null;
+});
+
+// data — serveur Cloudflare (adresse dans api.json)
+let API = "";
+async function pull(first){
+  try {
+    const r = await fetch(API + "/posts", {cache: "no-store"});
+    if (!r.ok) throw new Error(r.status);
+    posts = await r.json();
+    setStatus(`${posts.filter(p=>p.date).length} posts programmés · ${posts.filter(isDone).length} publiés`);
+    render();
+  } catch(e){ if (first) setStatus("Le planning ne répond pas. Vérifie ta connexion puis recharge la page.", true); }
+}
+render();
+(async () => {
+  try { API = (await (await fetch("api.json", {cache: "no-store"})).json()).url.replace(/\/$/, ""); }
+  catch(e){ setStatus("Adresse du serveur introuvable (api.json).", true); return; }
+  db = true;
+  await pull(true);
+  setInterval(() => { if (!document.hidden && !dragId) pull(false); }, 20000);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) pull(false); });
+})();
+})();
+</script>
+
+</body>
+</html>

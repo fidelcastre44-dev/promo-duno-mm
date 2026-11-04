@@ -1,0 +1,6 @@
+{
+  "name": "promo-duno-mm-api",
+  "private": true,
+  "type": "module",
+  "devDependencies": { "wrangler": "^4" }
+}

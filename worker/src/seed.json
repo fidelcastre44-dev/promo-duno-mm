@@ -1,0 +1,482 @@
+[
+ {
+  "date": "2026-11-06",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "pad",
+  "file": "pad_duno_fréjus.MOV",
+  "format": "pad_duno_fréjus",
+  "note": "",
+  "num": "1",
+  "poster": "duno",
+  "type": "Reel d'essai",
+  "url": "https://drive.google.com/file/d/1BtmoXnXtkRWX5o8vXUO1xYY5KsHbvnY6/view",
+  "id": "p1"
+ },
+ {
+  "date": "2026-11-08",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "synth",
+  "file": "synthe_duno_8.MOV",
+  "format": "synthe_duno_8",
+  "note": "",
+  "num": "2",
+  "poster": "duno",
+  "type": "Reel",
+  "url": "https://drive.google.com/file/d/1CWFRJGbg6YWpC23K2B3_whKUmYC1TlYZ/view",
+  "id": "p2"
+ },
+ {
+  "date": "2026-11-07",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "bass",
+  "file": "bass_piano_duno_mm.MOV",
+  "format": "bass_piano_duno_mm",
+  "note": "",
+  "num": "3",
+  "poster": "cross",
+  "type": "Reel",
+  "url": "https://drive.google.com/file/d/1ylxxeZTH7n2Sn_hEEp3MKxP0L39ByPkq/view",
+  "id": "p3"
+ },
+ {
+  "date": "2026-11-11",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "blase",
+  "file": "blasé.MOV",
+  "format": "blasé",
+  "note": "",
+  "num": "4",
+  "poster": "cross",
+  "type": "Reel",
+  "url": "https://drive.google.com/file/d/1UyTG_6YfAFUXivauRLdHlYU9bRGCL8w5/view",
+  "id": "p4"
+ },
+ {
+  "date": "2026-11-13",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "brule",
+  "file": "putain les gars ca brule.mov",
+  "format": "putain les gars ca brule",
+  "note": "",
+  "num": "5",
+  "poster": "cross",
+  "type": "Reel",
+  "url": "https://drive.google.com/file/d/19Zv_PpNuVtCEjctVr1zFQ7H8u0mp9g4F/view",
+  "id": "p5"
+ },
+ {
+  "date": "2026-11-06",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "elysee",
+  "file": "elysée montmartre.MOV",
+  "format": "elysée montmartre",
+  "note": "",
+  "num": "6",
+  "poster": "mm",
+  "type": "Reel",
+  "url": "https://drive.google.com/file/d/18tTm9l3vqZlRpEr_QxA4Q4jlbxzMPX_A/view",
+  "id": "p6"
+ },
+ {
+  "date": "2026-11-08",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "amoureux",
+  "file": "tomber amoureux.MP4",
+  "format": "tomber amoureux",
+  "note": "",
+  "num": "7",
+  "poster": "mm",
+  "type": "Reel",
+  "url": "https://drive.google.com/file/d/1HMtq2YCoA_LZD-jQX7Ca0-ah8TPi3XQP/view",
+  "id": "p7"
+ },
+ {
+  "date": "2026-11-10",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "zoom",
+  "file": "zoom_duno_mm.mov",
+  "format": "zoom_duno_mm",
+  "note": "",
+  "num": "8",
+  "poster": "duno",
+  "type": "Reel",
+  "url": "https://drive.google.com/file/d/1XZ4nM2T6T1-GSNcqBvBFDpP3YmHIT4Zi/view",
+  "id": "p8"
+ },
+ {
+  "date": "2026-11-14",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "zoom",
+  "file": "zoom_duno_mm_2.mov",
+  "format": "zoom_duno_mm",
+  "note": "",
+  "num": "9",
+  "poster": "duno",
+  "type": "Reel d'essai",
+  "url": "https://drive.google.com/file/d/1t43MeiJiRTIfsZdWLSTZeq3vcytOCZCP/view",
+  "id": "p9"
+ },
+ {
+  "date": "2026-11-18",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "zoom",
+  "file": "zoom_mm_duno.mov",
+  "format": "zoom_mm_duno",
+  "note": "",
+  "num": "10",
+  "poster": "mm",
+  "type": "Reel d'essai",
+  "url": "https://drive.google.com/file/d/1_8vkfZn5ZKPxvJL1mPDNF50jJ9Cs9izb/view",
+  "id": "p10"
+ },
+ {
+  "date": "2026-11-05",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "zoom",
+  "file": "zoom_mm_duno_2.mov",
+  "format": "zoom_mm_duno",
+  "note": "",
+  "num": "11",
+  "poster": "cross",
+  "type": "Reel",
+  "url": "https://drive.google.com/file/d/1NdGXuvS3n5cqy85CFF953Gw-1-5XkCif/view",
+  "id": "p11"
+ },
+ {
+  "date": "2026-11-12",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "pad",
+  "file": "pad_duno.MOV",
+  "format": "pad_duno",
+  "note": "",
+  "num": "12",
+  "poster": "duno",
+  "type": "Reel d'essai",
+  "url": "https://drive.google.com/file/d/1KKmtcmPajii6AFUX4sEW8dH3xUIDUOUt/view",
+  "id": "p12"
+ },
+ {
+  "date": "2026-11-16",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "pad",
+  "file": "pad_duno_4.mov",
+  "format": "pad_duno",
+  "note": "",
+  "num": "15",
+  "poster": "duno",
+  "type": "Reel d'essai",
+  "url": "https://drive.google.com/file/d/1P1kjxE1n3DG5mqkW4lT01VWO7TQD4Edl/view",
+  "id": "p15"
+ },
+ {
+  "date": "2026-11-21",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "pad",
+  "file": "pad_duno_7.MOV",
+  "format": "pad_duno",
+  "note": "",
+  "num": "18",
+  "poster": "duno",
+  "type": "Reel d'essai",
+  "url": "https://drive.google.com/file/d/1-Kg7vOEnhoD1miNMOFl4b67r3iKd_lQw/view",
+  "id": "p18"
+ },
+ {
+  "date": "2026-11-12",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "synth",
+  "file": "synth_mm.MOV",
+  "format": "synth_mm",
+  "note": "",
+  "num": "19",
+  "poster": "mm",
+  "type": "Story",
+  "url": "https://drive.google.com/file/d/1wSyRcivMSpQSpHwApED_g7Cg26Yq5NUd/view",
+  "id": "p19"
+ },
+ {
+  "date": "2026-11-16",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "synth",
+  "file": "synth_mm_2.MOV",
+  "format": "synth_mm",
+  "note": "",
+  "num": "20",
+  "poster": "mm",
+  "type": "Reel",
+  "url": "https://drive.google.com/file/d/1DhsFw25zUiSZDsOU_vipOUXmTD1a3nuo/view",
+  "id": "p20"
+ },
+ {
+  "date": "2026-11-18",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "bass",
+  "file": "duno_bass.MOV",
+  "format": "duno_bass",
+  "note": "",
+  "num": "21",
+  "poster": "duno",
+  "type": "Reel",
+  "url": "https://drive.google.com/file/d/1IQhunVrxtkUkPk5MFUtmUzlhzhJpf-k7/view",
+  "id": "p21"
+ },
+ {
+  "date": "2026-11-17",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "jam",
+  "file": "jam.MOV",
+  "format": "jam",
+  "note": "",
+  "num": "23",
+  "poster": "cross",
+  "type": "Reel",
+  "url": "https://drive.google.com/file/d/1Th_-XRXB2VZwOuWDynEEk5FxqimGlOlo/view",
+  "id": "p23"
+ },
+ {
+  "date": "2026-11-09",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "tsf",
+  "file": "tu sais faire 2.MOV",
+  "format": "tu sais faire – montage",
+  "note": "",
+  "num": "26",
+  "poster": "cross",
+  "type": "Reel",
+  "url": "https://drive.google.com/file/d/1kUwsLJ6cLjjNjl-RRIYYSfR7ddc4hifb/view",
+  "id": "p26"
+ },
+ {
+  "date": "2026-11-19",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "tsf",
+  "file": "tu sais faire 2.MOV",
+  "format": "tu sais faire – hook + ambiance",
+  "note": "",
+  "num": "26b",
+  "poster": "cross",
+  "type": "Reel",
+  "url": "https://drive.google.com/file/d/1kUwsLJ6cLjjNjl-RRIYYSfR7ddc4hifb/view",
+  "id": "p26b"
+ },
+ {
+  "date": "2026-11-15",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "elysee",
+  "file": "elysée 1.MOV",
+  "format": "elysée",
+  "note": "",
+  "num": "27",
+  "poster": "cross",
+  "type": "Reel",
+  "url": "https://drive.google.com/file/d/1qOwZqm5js1m1oFq8JGAUGEI8EoeWySxG/view",
+  "id": "p27"
+ },
+ {
+  "date": "2026-11-10",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "elysee",
+  "file": "elysée 2.MOV",
+  "format": "elysée",
+  "note": "",
+  "num": "28",
+  "poster": "mm",
+  "type": "Reel",
+  "url": "https://drive.google.com/file/d/1bALb4q8SSYwO-rwJX68L52SWA_W1GcRc/view",
+  "id": "p28"
+ },
+ {
+  "date": "2026-11-20",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "elysee",
+  "file": "elysée 3.MOV",
+  "format": "elysée",
+  "note": "",
+  "num": "29",
+  "poster": "duno",
+  "type": "Reel",
+  "url": "https://drive.google.com/file/d/1aH401DRrdJOTXaBHxTNdnCx7jvamav3z/view",
+  "id": "p29"
+ },
+ {
+  "date": "",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "aymeric",
+  "file": "",
+  "format": "Vidéos d'Aymeric de l'Élysée (balcon, Ryan, montage, foule)",
+  "note": "En construction par Aymeric",
+  "num": "30",
+  "poster": "cross",
+  "type": "Reel",
+  "url": "",
+  "id": "p30"
+ },
+ {
+  "date": "",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "facetime",
+  "file": "",
+  "format": "FaceTime de Paul pendant les shows",
+  "note": "À faire aux prochaines dates",
+  "num": "31",
+  "poster": "",
+  "type": "Reel",
+  "url": "",
+  "id": "p31"
+ },
+ {
+  "date": "",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "facetime",
+  "file": "",
+  "format": "FaceTime de Hugo en Thaïlande",
+  "note": "À faire",
+  "num": "32",
+  "poster": "",
+  "type": "Reel",
+  "url": "",
+  "id": "p32"
+ },
+ {
+  "date": "",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "ralentis",
+  "file": "",
+  "format": "Montages ralentis façon Tiffany Days",
+  "note": "En construction par Paul",
+  "num": "33",
+  "poster": "",
+  "type": "Reel",
+  "url": "",
+  "id": "p33"
+ },
+ {
+  "date": "",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "push",
+  "file": "",
+  "format": "Plan Duno push chambre (synthé puis drop face cam)",
+  "note": "En tournage par Paul",
+  "num": "34",
+  "poster": "",
+  "type": "Reel",
+  "url": "",
+  "id": "p34"
+ },
+ {
+  "date": "",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "relance",
+  "file": "",
+  "format": "Crosspost photo et vidéo relance avec des extraits solo",
+  "note": "À faire",
+  "num": "35",
+  "poster": "cross",
+  "type": "Reel",
+  "url": "",
+  "id": "p35"
+ },
+ {
+  "date": "",
+  "done": {
+   "duno": false,
+   "mm": false
+  },
+  "family": "summerlove",
+  "file": "",
+  "format": "TikToks Paul et Hugo avec leurs meufs, summer love iPhone",
+  "note": "À faire, Paul et Hugo",
+  "num": "36",
+  "poster": "",
+  "type": "Reel",
+  "url": "",
+  "id": "p36"
+ }
+]

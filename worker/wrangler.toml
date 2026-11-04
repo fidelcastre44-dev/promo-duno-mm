@@ -1,0 +1,8 @@
+name = "promo-duno-mm"
+main = "src/index.js"
+compatibility_date = "2026-06-01"
+workers_dev = true
+
+[[kv_namespaces]]
+binding = "POSTS"
+id = "59c44ac330c24a2d8a20cdb6d0226290"
