@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["worker/**"]
+    paths: ["worker/**", ".github/workflows/deploy-worker.yml"]
 
 permissions:
   contents: write
@@ -32,6 +32,7 @@ jobs:
       - name: Déployer
         id: deploy
         run: |
+          set -o pipefail
           npx wrangler deploy | tee deploy.log
           URL=$(grep -oE 'https://[a-zA-Z0-9.-]+\.workers\.dev' deploy.log | head -1)
           echo "url=$URL" >> "$GITHUB_OUTPUT"
