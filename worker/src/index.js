@@ -1,6 +1,7 @@
 // API du calendrier promo Duno × Majeur Mineur.
 // GET  /posts         -> liste des posts
 // POST /posts/<id>    -> modifie date, compte, caption ou « publié » d'un post
+// GET/POST /feedback  -> retours sur l'appli (envoyés depuis le bas de page)
 const SEED_URL = "https://fidelcastre44-dev.github.io/promo-duno-mm/seed.json";
 
 const CORS = {
@@ -31,6 +32,21 @@ export default {
 
     if (url.pathname === "/posts" && req.method === "GET") {
       return json(await load(env));
+    }
+
+    if (url.pathname === "/feedback" && req.method === "GET") {
+      return json((await env.POSTS.get("feedback", "json")) || []);
+    }
+    if (url.pathname === "/feedback" && req.method === "POST") {
+      let body;
+      try { body = await req.json(); } catch { return json({ error: "JSON invalide" }, 400); }
+      const text = typeof body.text === "string" ? body.text.trim().slice(0, 2000) : "";
+      if (!text) return json({ error: "Retour vide" }, 400);
+      const who = ["Hugo", "Paul", "Autre"].includes(body.who) ? body.who : "Autre";
+      const list = (await env.POSTS.get("feedback", "json")) || [];
+      list.push({ at: new Date().toISOString(), who, text });
+      await env.POSTS.put("feedback", JSON.stringify(list.slice(-200)));
+      return json({ ok: true });
     }
 
     const m = url.pathname.match(/^\/posts\/([A-Za-z0-9_-]{1,20})$/);

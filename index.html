@@ -127,6 +127,17 @@ header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:spac
 .aphase{padding:10px 14px 4px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);background:var(--bg)}
 .field textarea{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:9px 10px;width:100%;resize:vertical;font:inherit;color:inherit;min-height:84px}
 
+.fb{border-top:1px solid var(--line);padding-top:18px;display:flex;flex-direction:column;gap:10px;max-width:640px}
+.fb h2{font-size:16px;font-weight:700}
+.fb p{margin:0;font-size:13.5px;color:var(--muted)}
+.fb form{display:flex;flex-direction:column;gap:8px}
+.fb textarea{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:9px 10px;width:100%;resize:vertical;min-height:70px;font:inherit;color:inherit}
+.fb .row{align-items:center}
+.fb select{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 8px}
+.fb ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.fb li{font-size:13.5px;border-left:3px solid var(--line);padding:2px 0 2px 10px;overflow-wrap:anywhere}
+.fb li small{display:block;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.fb details summary{cursor:pointer;font-size:13px;color:var(--muted)}
 .help{font-size:13.5px;color:var(--muted);max-width:70ch}
 .help b{color:var(--fg)}
 
@@ -210,6 +221,21 @@ header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:spac
   <p class="help"><b>Pour changer une date :</b> glisse un post sur un autre jour (ordinateur) ou ouvre-le et choisis la date (téléphone). Les changements arrivent chez l'autre en moins d'une demi-minute.
   <b>Pour publier :</b> « Ouvrir la vidéo » ouvre le fichier dans Google Drive. Sur téléphone, dans l'appli Drive, touche ⋮ puis <i>Envoyer une copie</i> → Instagram ou TikTok. Un cadre orange signale deux formats proches à moins de 3 jours d'écart.</p>
   <p class="status" id="status">Chargement du planning…</p>
+
+  <section class="fb" id="fb">
+    <h2>Un bug, une idée ?</h2>
+    <p>Écris ici ce qui ne marche pas ou ce qui manque dans l'appli. Paul récupère les retours pour corriger.</p>
+    <form id="fbForm">
+      <textarea id="fbText" aria-label="Ton retour" maxlength="2000" placeholder="Ex. : sur iPhone, le bouton Ouvrir la vidéo ne fait rien" required></textarea>
+      <div class="row">
+        <label for="fbWho" class="tip">De la part de</label>
+        <select id="fbWho"><option>Hugo</option><option>Paul</option><option>Autre</option></select>
+        <button class="btn primary" type="submit" id="fbSend">Envoyer</button>
+        <span class="tip" id="fbMsg" aria-live="polite"></span>
+      </div>
+    </form>
+    <details id="fbList" hidden><summary></summary><ul id="fbItems"></ul></details>
+  </section>
 </div>
 
 <div class="scrim" id="scrim" hidden></div>
@@ -335,9 +361,12 @@ function renderTray(){
 function renderDrawer(){
   const p = posts.find(x => x.id === openId);
   const dr = $("#drawer");
-  if (!p){ dr.hidden = true; $("#scrim").hidden = true; dr.dataset.id = ""; return; }
-  if (!dr.hidden && dr.dataset.id === p.id && document.activeElement && document.activeElement.id === "dCap") return;
-  dr.dataset.id = p.id;
+  if (!p){ dr.hidden = true; $("#scrim").hidden = true; dr.dataset.open = ""; document.body.style.overflow = ""; return; }
+  // ne pas reconstruire le panneau pendant qu'on écrit ou qu'on choisit une date
+  const ae = document.activeElement;
+  if (!dr.hidden && dr.dataset.open === p.id && ae && dr.contains(ae) && /^(INPUT|SELECT|TEXTAREA)$/.test(ae.tagName)) return;
+  const fresh = dr.dataset.open !== p.id;
+  dr.dataset.open = p.id;
   const c = clashes(p);
   const accts = p.poster === "cross" ? ["duno","mm"] : p.poster ? [p.poster] : [];
   dr.className = "drawer k-" + kc(p);
@@ -378,7 +407,8 @@ function renderDrawer(){
       <label>Publié ?</label>
       <div class="checks">${accts.map(a => `<label class="check k-${a}"><input type="checkbox" data-acc="${a}" ${p.done?.[a] ? "checked" : ""} ${canWrite ? "" : "disabled"}> Publié sur le compte ${ACC[a]}</label>`).join("")}</div>
     </div>`;
-  dr.hidden = false; $("#scrim").hidden = false;
+  dr.hidden = false; $("#scrim").hidden = false; document.body.style.overflow = "hidden";
+  if (fresh) $("#dClose").focus({preventScroll: true});
 }
 
 function render(){
@@ -404,9 +434,9 @@ async function save(id, patch){
 document.addEventListener("click", e => {
   const w = e.target.closest(".who button");
   if (w){ who = w.dataset.who; try { localStorage.setItem("promo-who", who); } catch(_){} render(); return; }
+  if (e.target.closest("#dClose") || e.target.id === "scrim"){ openId = null; renderDrawer(); return; }
   const c = e.target.closest("[data-id]");
-  if (c && !e.target.closest("a")){ openId = c.dataset.id; renderDrawer(); return; }
-  if (e.target.id === "dClose" || e.target.id === "scrim"){ openId = null; renderDrawer(); return; }
+  if (c && !e.target.closest("a, #drawer")){ openId = c.dataset.id; renderDrawer(); return; }
   const p = posts.find(x => x.id === openId);
   if (!p) return;
   if (e.target.id === "dMinus" || e.target.id === "dPlus"){
@@ -444,6 +474,28 @@ document.addEventListener("drop", e => {
   dragId = null;
 });
 
+
+// retours sur l'appli
+async function loadFeedback(){
+  try {
+    const r = await fetch(API + "/feedback", {cache: "no-store"}); if (!r.ok) return;
+    const list = await r.json();
+    const d = $("#fbList"); d.hidden = !list.length;
+    d.querySelector("summary").textContent = `${list.length} retour${list.length > 1 ? "s" : ""} envoyé${list.length > 1 ? "s" : ""}`;
+    $("#fbItems").innerHTML = list.slice().reverse().map(f => `<li>${esc(f.text)}<small>${esc(f.who)} · ${new Date(f.at).toLocaleString("fr-FR", {day:"numeric", month:"short", hour:"2-digit", minute:"2-digit"})}</small></li>`).join("");
+  } catch(_){}
+}
+$("#fbForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const text = $("#fbText").value.trim(); if (!text) return;
+  $("#fbSend").disabled = true; $("#fbMsg").textContent = "Envoi…";
+  try {
+    const r = await fetch(API + "/feedback", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({text, who: $("#fbWho").value})});
+    if (!r.ok) throw new Error(r.status);
+    $("#fbText").value = ""; $("#fbMsg").textContent = "Merci, c'est envoyé."; loadFeedback();
+  } catch(_){ $("#fbMsg").textContent = "L'envoi n'a pas marché. Réessaie dans un instant."; }
+  $("#fbSend").disabled = false;
+});
 // data — serveur Cloudflare (adresse dans api.json)
 let API = "";
 async function pull(first){
@@ -461,6 +513,7 @@ render();
   catch(e){ setStatus("Adresse du serveur introuvable (api.json).", true); return; }
   db = true;
   await pull(true);
+  loadFeedback();
   setInterval(() => { if (!document.hidden && !dragId && !(document.activeElement && document.activeElement.id === "dCap")) pull(false); }, 20000);
   document.addEventListener("visibilitychange", () => { if (!document.hidden) pull(false); });
 })();
